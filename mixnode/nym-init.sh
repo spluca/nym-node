@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+NODE_NAME=${NODE_NAME-example}
+
 while getopts h:i:l: option
 do
     case "${option}"
@@ -10,10 +13,11 @@ do
 done
 
 echo "Checking for pem files"
-if [ ! -f $HOME/.nym/mixnode/debaser/data/private_sphinx.pem ] || [ ! -f $HOME/.nym/mixnode/debaser/data/public_sphinx.pem ]; then
+if [ ! -f /root/.nym/mixnode/${NODE_NAME}/data/private_sphinx.pem ] || [ ! -f /root/.nym/mixnode/${NODE_NAME}/data/public_sphinx.pem ]; then
     echo "Missing pem files, running init"
     nym-mixnode init --host ${HOST} --id ${ID} --layer ${LAYER}
 fi
-if [ -f $HOME/.nym/mixnode/debaser/data/private_sphinx.pem ] && [ -f $HOME/.nym/mixnode/debaser/data/public_sphinx.pem ]; then
+if [ -f /root/.nym/mixnode/${NODE_NAME}/data/private_sphinx.pem ] && [ -f /root/.nym/mixnode/${NODE_NAME}/data/public_sphinx.pem ]; then
     echo "Pem files found"
 fi
+
